@@ -1,0 +1,134 @@
+<html style="filter: hue-rotate(330deg) contrast(2.2) brightness(0.3);">
+<head>
+    <title>0x83</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/qk9kc9.gif">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        letter-spacing: 8px;
+        -webkit-font-smoothing: none;
+    }
+    body {
+        background-color: #8b8b8b;
+        color: #ffffff;
+        font-family: 'Source Code Pro', monospace;
+        overflow: hidden;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:link {
+        color: #e7e7e7;
+    }
+    a:hover {
+        color: #ffffff;
+        animation: wiredB2 1s ease-out infinite;
+    }
+    a:visited {
+        color: inherit;
+    }
+    a:active {
+        color: #ffffff;
+    }
+    #navbar {
+        background-color: black;
+        width: 800px;
+        margin: 40px auto 0;
+        box-shadow: black 0px 5px 10px;
+        text-align: center;
+        padding-top: 40px;
+        border-radius: 15px;
+        user-select: none;
+        position: relative;
+        z-index: 2;
+    }
+    #enterWired {
+        display: block;
+        background-image: url(https://files.catbox.moe/qk9kc9.gif);
+        width: 838px;
+        height: 650px;
+        margin: 30px auto 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        z-index: 2;
+        position: relative;
+    }
+    .video-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    @keyframes wiredB2 {
+        50% {
+            color: #ffffff;
+            text-shadow: #ffffff 1px 1px 6px;
+        }
+    }
+</style>
+<body>
+
+
+<!-- Background Video -->
+<video class="video-bg" autoplay muted loop playsinline preload="auto">
+    <source src="https://files.catbox.moe/4ih0lt.mp4" type="video/mp4">
+</video>
+
+<audio id="bg-music" autoplay loop>
+  <source src="https://files.catbox.moe/xyeimt.mp3" type="audio/mp3">
+</audio>
+
+    <div id="navbar">
+        assembly
+        <br><br><br><br>
+        <a href="https://discord.com/users/921065839690645524" onclick="saveAudioTime()" target="_blank" rel="noopener noreferrer">[discord]</a>
+        <br><br>
+    </div>
+    <div id="enterWired"></div>
+
+	<div id="click-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:black;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+		click here
+	  </div>
+	  <script>
+		  document.getElementById("click-overlay").addEventListener("click", () => {
+			  document.getElementById("click-overlay").style.display = "none";
+			  audio.play();
+		  });
+	  </script>
+	  
+
+<script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    const audio = document.getElementById("bg-music");
+
+    // Try restoring playback time
+    const savedTime = sessionStorage.getItem("audioTime");
+    if (savedTime !== null) {
+        audio.currentTime = parseFloat(savedTime);
+    }
+
+    // Play music only after user interaction (required by most browsers)
+    const startAudio = () => {
+        audio.play();
+        document.removeEventListener('click', startAudio);
+    };
+    document.addEventListener('click', startAudio);
+
+    // Save time when navigating away (optional)
+    window.addEventListener("beforeunload", () => {
+        sessionStorage.setItem("audioTime", audio.currentTime);
+    });
+</script>
+</body>
+</html>
